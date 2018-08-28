@@ -1,0 +1,24 @@
+﻿.main{
+    text-align:center;
+}
+.barley {
+    background: #758dff;
+    width: 100px;
+    float: left;
+    height: 100px;
+}
+    .barley > input {
+        text-decoration:dotted;
+        font-size:55px;
+        background: #49dd87;
+        width: 90%;
+        height: 90px;
+        margin: auto;
+    }
+
+        .barley > input:hover {
+            background: #aabd7d;
+        }
+    #space{
+        background:#aabd7d;
+    }

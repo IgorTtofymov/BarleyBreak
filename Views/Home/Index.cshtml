@@ -1,0 +1,48 @@
+﻿@model  Barley_Break.Models.BarleyModel
+@{ double count = Math.Sqrt(Convert.ToDouble(Model.Sequence.Count));
+    //это для того, чтоб настроить размер окна (см строку 12)
+    int rangeLenght = (int)count * 100;}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Game";
+}
+
+<div class="wrap" style="
+    height:400px;
+    /*хотелось бы здесь написать что-то вроде width:rangeLenght px; но не знаю как*/
+    width:400px;">
+
+    @using (Html.BeginForm("Shuffle", "Home", FormMethod.Post))
+    {
+        for (int i = 0; i < Model.Sequence.Count; i++)
+        {
+
+            <div class="barley">
+                @{ if (Model.Sequence[i] == 0)
+                    {
+                        @Html.Hidden("Sequence", @Model.Sequence[i])
+                        <input type="submit" name="button" id="space" value=" " />
+                    }
+                    else
+                    {
+                        @Html.Hidden("Sequence", @Model.Sequence[i])
+                        <input type="submit" name="button" value="@Model.Sequence[i]" />
+                    }
+                }
+            </div>
+        }
+
+    }
+</div>
+@*вопросы:
+    1. как сделать, чтоб кнопки выравнивались по центру контейнера, в котором они находятся(сейчас кнопка слева сверху)
+    2. как тебе идея со статической переменной для управления данными
+    3.как тебе идея создания класса для передачи данных
+    4. как тебе сама логика приложения
+    5. надо бы как-то покрасивее настроить отображение победы
+
+
+    идея (моя)заключается в том, что значение  const int square = 4 должно определять количество игральных номеров в ряду
+    и соответственно все остальные должны зависеть от него, чтоб поменяв его менялось все представление
+     кстати насчет шаблона который Template
+    в сдеале сделать что то типа  заполнения его значениями от 0 до square*square*@
