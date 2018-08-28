@@ -1,6 +1,5 @@
 ﻿@model  Barley_Break.Models.BarleyModel
 @{ double count = Math.Sqrt(Convert.ToDouble(Model.Sequence.Count));
-    //это для того, чтоб настроить размер окна (см строку 12)
     int rangeLenght = (int)count * 100;
     string rangeLenghtStrinh = rangeLenght.ToString() + "px";}
 @{
@@ -9,8 +8,7 @@
 }
 
 <div class="wrap" style="
-    height:400px;
-    /*хотелось бы здесь написать что-то вроде width:rangeLenght px; но не знаю как*/
+    height:@rangeLenghtStrinh;
     width:@rangeLenghtStrinh;">
 
     @using (Html.BeginForm("Shuffle", "Home", FormMethod.Post))

@@ -10,7 +10,7 @@ namespace Barley_Break.Controllers
     public class HomeController : Controller
     {
         static BarleyModel staticModel = new BarleyModel();
-        const int square = 4;
+        const int square = 5;
         static List<int> template = new List<int>();
         bool swaped;
 
@@ -69,7 +69,7 @@ namespace Barley_Break.Controllers
         /// <returns></returns>
         public ActionResult Congratulations()
         {
-            staticModel.Sequence.RemoveRange(0,square * square);
+            staticModel.Sequence.Clear();
             return View();
         }
 
@@ -92,7 +92,7 @@ namespace Barley_Break.Controllers
                     Swap(ref barleyModel, zeroPosition, btnPos);
                     swaped = true;
                 }
-                else if ((zeroPosition+1 <= (barleyModel.Sequence.Count - square) && btnPos - zeroPosition == 4) || (zeroPosition+1 > square && zeroPosition - btnPos == 4))
+                else if ((zeroPosition+1 <= (barleyModel.Sequence.Count - square) && btnPos - zeroPosition == square) || (zeroPosition+1 > square && zeroPosition - btnPos == square))
                 {
                     Swap(ref barleyModel, zeroPosition, btnPos);
                     swaped = true;
@@ -107,7 +107,7 @@ namespace Barley_Break.Controllers
                     {
                         Swap(ref barleyModel, zeroPosition, btnPos);
                     }
-                    else if ((zeroPosition+1 <= (barleyModel.Sequence.Count - square) && btnPos - zeroPosition == 4) || (zeroPosition+1 > square && zeroPosition - btnPos == 4))
+                    else if ((zeroPosition+1 <= (barleyModel.Sequence.Count - square) && btnPos - zeroPosition == square) || (zeroPosition+1 > square && zeroPosition - btnPos == square))
                     {
                         Swap(ref barleyModel, zeroPosition, btnPos);
                     }
