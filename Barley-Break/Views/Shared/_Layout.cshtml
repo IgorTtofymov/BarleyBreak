@@ -3,17 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     <link href=@Url.Content("~/Content/barley.css") rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <header>
         <div class="container">
-            <div class="navbar-collapse collapse">
-                <h4> @Html.ActionLink("New game", "NewGame", "Home")</h4>
+            <div style="margin:auto;">
+                @using (Html.BeginForm("NewGame", "Home", FormMethod.Get))
+    {
+                    @Html.Label("Enter the lenght of the field for game")
+            @Html.TextBox("range")
+           <input type="submit" value="Start new game") />
+}
             </div>
+            <hr />
         </div>
-    </div>
+    </header>
     <div class="container body-content">
         @RenderBody()
         <hr />

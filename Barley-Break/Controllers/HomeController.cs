@@ -10,17 +10,18 @@ namespace Barley_Break.Controllers
     public class HomeController : Controller
     {
         static BarleyModel staticModel = new BarleyModel();
-        const int square = 5;
+        static int square;
         static List<int> template = new List<int>();
         bool swaped;
 
         /// <summary>
         /// Initialize some data to start game 
         /// <returns></returns>
-        public ActionResult NewGame()
+        public ActionResult NewGame(int range =4)
         {
             staticModel.Sequence.Clear();
             template.Clear();
+            square = range;
             //initialize for start
             Random r = new Random();
             for (int i = 0; i < square * square; i++)
@@ -43,11 +44,19 @@ namespace Barley_Break.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-                if (staticModel.Sequence.SequenceEqual(template))
-                    return RedirectToAction("Congratulations");
-            
+            BarleyModel sequence = TempData["sequence"] as BarleyModel;
+            if (sequence != null)
+            {
+
+            if (sequence.Sequence.SequenceEqual(template))
+                return RedirectToAction("Congratulations");
+                return View(sequence);
+            }
+
             return View(staticModel);
         }
+
+
 
         /// <summary>
         /// This method swaps values 'a' and 'b' in Sequence property of BarleyModel class
@@ -81,18 +90,18 @@ namespace Barley_Break.Controllers
         /// <param name="barleyModel.Sequence">current sequence of buttons</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Shuffle(BarleyModel barleyModel)
+        public ActionResult Move(BarleyModel barleyModel)
         {
             int zeroPosition = barleyModel.Sequence.IndexOf(0);
             int btnPos = barleyModel.Sequence.IndexOf(barleyModel.Button);
-            if ((zeroPosition+1) % square != 0)
+            if ((zeroPosition + 1) % square != 0)
             {
                 if (btnPos - zeroPosition == 1)
                 {
                     Swap(ref barleyModel, zeroPosition, btnPos);
                     swaped = true;
                 }
-                else if ((zeroPosition+1 <= (barleyModel.Sequence.Count - square) && btnPos - zeroPosition == square) || (zeroPosition+1 > square && zeroPosition - btnPos == square))
+                else if ((zeroPosition + 1 <= (barleyModel.Sequence.Count - square) && btnPos - zeroPosition == square) || (zeroPosition + 1 > square && zeroPosition - btnPos == square))
                 {
                     Swap(ref barleyModel, zeroPosition, btnPos);
                     swaped = true;
@@ -107,7 +116,7 @@ namespace Barley_Break.Controllers
                     {
                         Swap(ref barleyModel, zeroPosition, btnPos);
                     }
-                    else if ((zeroPosition+1 <= (barleyModel.Sequence.Count - square) && btnPos - zeroPosition == square) || (zeroPosition+1 > square && zeroPosition - btnPos == square))
+                    else if ((zeroPosition + 1 <= (barleyModel.Sequence.Count - square) && btnPos - zeroPosition == square) || (zeroPosition + 1 > square && zeroPosition - btnPos == square))
                     {
                         Swap(ref barleyModel, zeroPosition, btnPos);
                     }
@@ -115,9 +124,9 @@ namespace Barley_Break.Controllers
                 }
             }
             swaped = false;
-
+            TempData["sequence"] = barleyModel;
             staticModel = barleyModel;
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,19 +1,28 @@
-﻿.main{
-    text-align:center;
+﻿.main-congratulations {
+    width: device-width;
+    margin: auto;
+    background:black;
 }
-.barley {
-    background: #758dff;
-    width: 100px;
-    float: left;
-    height: 100px;
-}
+    .main-congratulations h2 {
+        text-align: center;
+        color: red;
+        font-size: 55px;
+    }
+    .main-congratulations img{
+        width:100%;
+        height:auto;
+    }
+    .barley {
+        float: left;
+        background: #758dff;
+        width: 100px;
+        height: 100px;
+    }
     .barley > input {
-        text-decoration:dotted;
-        font-size:55px;
+        font-size: 55px;
         background: #49dd87;
-        width: 90%;
-        height: 90px;
-        margin: auto;
+        width: 98%;
+        height: 98%;
     }
 
         .barley > input:hover {
